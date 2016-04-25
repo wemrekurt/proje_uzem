@@ -3,10 +3,13 @@ class UsersController < ApplicationController
 
   def index
      @Users = User.where("email!=?",current_user.email).all
+     authorize @Users
   end
 
   def active_pasive
     @user=User.find(params["id"])
+    authorize @user
+
       if(@user.isActive==true)
         @user.isActive=false
       elsif (@user.isActive==false)

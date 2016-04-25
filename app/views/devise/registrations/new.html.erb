@@ -6,7 +6,7 @@
   <div class="field">
     <% Role.all.each do |role| %>
       <% if role.role!="SuperAdmin"%>
-       <%= radio_button_tag "user[role_ids][]", role.id, @user.roles.include?(role) %>
+       <%= radio_button_tag "user[role_ids][]", role.id, @user.roles.include?(role), :checked => role.id == 2 %>
        <%= role.role %>
       <%end%>
     <% end %>

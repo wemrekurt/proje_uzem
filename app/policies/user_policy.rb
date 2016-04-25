@@ -6,9 +6,13 @@ class UserPolicy < ApplicationPolicy
       @uye = uye
     end
 
+    def index?
+      user.roles.where(role:'SuperAdmin').exists?
+    end
+
 
     def active_pasive?
-      uye.roles.where(role: 'SuperAdmin').exists?
+      user.roles.where(role: 'SuperAdmin').exists?
     end
 
 end
