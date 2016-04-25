@@ -1,0 +1,10 @@
+<table>
+<% @Users.each do |user| %>
+  <tr>
+    <%= user.email %>
+    <%= user.roles.first.role %>
+    <%= user.isActive %>
+    <%=  link_to "A/P", active_pasive_user_path(user) %>
+  </tr>
+<% end %>
+</table>
