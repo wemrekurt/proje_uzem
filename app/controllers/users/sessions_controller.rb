@@ -12,6 +12,24 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   def create
+    if current_user != nil
+      if current_user.isActive == true
+        self.resource = warden.authenticate!(auth_options)
+        set_flash_message(:notice, :signed_in) if is_flashing_format?
+        sign_in(resource_name, resource)
+        yield resource if block_given?
+          respond_with resource, location: after_sign_in_path_for(resource)
+      else
+        redirect_to new_user_session_path,  notice:  "Hesabınız Aktif Değil"
+      end
+    else
+      redirect_to new_user_registration_path
+    end
+  end
+
+
+=begin
+  def create
    @user=User.new(sign_in_params)
    @us=User.where(["email= ?",@user.email]).first
    if(@us!=nil)
@@ -30,7 +48,7 @@ class Users::SessionsController < Devise::SessionsController
      redirect_to new_user_registration_path
    end
  end
-
+=end
   # DELETE /resource/sign_out
   # def destroy
   #   super
